@@ -8,14 +8,29 @@
   </head>
 
   <body>
-    <div id="display">ここに何かが表示される</div>
+    <!-- Javascriptで遊んでみよう -->
+    <!-- <div id="display">ここに何かが表示される</div>
+    <button id="button">クリック！</button> -->
+
+    <!-- カウンターアプリ -->
+    <div id="display">0</div>
     <button id="button">クリック！</button>
 
     <script>
+      // Javascriptで遊んでみよう
+      // const display = document.getElementById("display")
+      // const button = document.getElementById("button")
+      // button.onclick = function() {
+      //   display.textContent = "クリックされた！！"
+      // }
+
+      // カウンターアプリ
       const display = document.getElementById("display")
       const button = document.getElementById("button")
+      let count = 0
       button.onclick = function() {
-        display.textContent = "クリックされた！！"
+        count += 1
+        display.textContent = count
       }
     </script>
   </body>
