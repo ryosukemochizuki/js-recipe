@@ -7,6 +7,12 @@
     <title>JSSample</title>
   </head>
 
+  <style>
+    .change-color {
+      color: red;
+    }
+  </style>
+
   <body>
     <!-- Javascriptで遊んでみよう -->
     <!-- <div id="display">ここに何かが表示される</div>
@@ -28,9 +34,17 @@
       const display = document.getElementById("display")
       const button = document.getElementById("button")
       let count = 0
-      button.onclick = function() {
+      button.onclick = function(e) {
         count += 1
         display.textContent = count
+        console.dir(display)
+        display.classList.add("change-color")
+        console.dir(e)
+      }
+
+      // イベントオブジェクト
+      window.onload = function(e) {
+        console.dir(e)
       }
     </script>
   </body>
