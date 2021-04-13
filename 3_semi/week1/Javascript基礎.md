@@ -46,3 +46,9 @@ HTMLCollection は HTML 文書の中から対応するタグを引っ張り出�
 これは何番目としてできるらしい。
 
 .children や.form など
+
+## Javascript のイベント
+
+button.onclick = alertMessage; //関数を入れることはできる　ただ代入しただけのもの
+
+✖︎ => button.onclick = alertMessage(); //()をつけると処理を実行して return された結果が代入されるから / return 関数 があればそれを実行することもできる
