@@ -7,9 +7,13 @@ let count = 0
 
 // カウントを上げて数える関数
 const countUp = function() {
-  count += 1 // countの更新
-  console.log(count)
-  display.textContent = count / 100 // countを1/100秒単位にして表示する
+  // count += 1 // countの更新
+  // console.log(count)
+  // display.textContent = count / 100 // countを1/100秒単位にして表示する
+
+  // なぞのズレ
+  count += 0.01
+  display.textContent = count
 }
 
 // 裏側のタイマーがあるかないかの識別子 初期値なし
@@ -29,7 +33,7 @@ button.onclick = function() {
 }
 
 // 発展★★
-// 後で
+// countUp関数でcount/100を表示する前に+1する時間があるから？
 
 // 発展★★★
-// 後で
+// memo
