@@ -1,0 +1,32 @@
+/* 四角 */
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  margin: 10px;
+}
+
+/* 丸 */
+.rounded {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  border-radius: 50px;
+  margin: 10px;
+}
+
+/* 三角 */
+.triangle {
+  width: 0;
+  height: 0;
+  margin: 10px;
+  border-top: 0 solid transparent;
+  border-right: 50px solid transparent;
+  border-left: 50px solid transparent;
+  border-bottom: 100px solid black;
+}
+
+/* 時間 */
+.transition {
+  transition: all 1s;
+}
