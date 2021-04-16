@@ -111,7 +111,7 @@ for (let m = 0; m < math.length; m++) {
 }
 
 // ＝を押した時に計算する
-sum.onclick = calc
+sum.onclick = calc // ()はつけない。const calcをsum.onclickにしていると考える。
 
 // sum.onclick = calc // function () {...} ( calc()の関数自体 )
 // sum.onclick = calc() // null ( calc() の実行結果 )
