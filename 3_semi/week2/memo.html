@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>コピぺ</title>
+  </head>
+  <body>
+    <input type="text" id="input" />
+    <div id="container"></div>
+    <button id="add-button">追加</button>
+    <button id="delete-button">全削除</button>
+
+    <script>
+      const input = document.getElementById("input")
+      const container = document.getElementById("container")
+      const addButton = document.getElementById("add-button")
+      const deleteButton = document.getElementById("delete-button")
+
+      // 状態を表現する変数
+      let list = []
+
+      if (localStorage.list) {
+        // 状態の更新 list: [] -> ["こんにちは"]
+        list = JSON.parse(localStorage.list)
+
+        // 状態の変化を画面に表示する
+        for (const text of list) {
+          const card = document.createElement("div")
+          card.className = "card"
+          card.textContent = text
+          container.append(card)
+        }
+      }
+
+      addButton.onclick = function() {
+        const text = input.value
+
+        // 状態の更新 list: ["こんにちは"] -> ["こんにちは", "こんばんは"]
+        list.push(text)
+        localStorage.list = JSON.stringify(list)
+
+        // 状態の変化を画面に表示する
+        const card = document.createElement("div")
+        card.className = "card"
+        card.textContent = text
+        container.append(card)
+
+        input.value = ""
+      }
+
+      // 練習問題
+      deleteButton.onclick = function() {
+        // 状態の更新
+        list = []
+        localStorage.list = JSON.stringify(list)
+
+        // 状態の変化を描画する
+        container.textContent = ""
+      }
+    </script>
+  </body>
+</html>

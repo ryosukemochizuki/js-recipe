@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>コピペ</title>
+  </head>
+  <body>
+    <div id="person"></div>
+    <button id="quit-working-button">退勤</button>
+    <button id="launch-button">打ち上げ</button>
+
+    <script>
+      // 要素の取得
+      const person = document.getElementById("person")
+      const quitWorkingButton = document.getElementById("quit-working-button")
+      const launchButton = document.getElementById("launch-button")
+
+      // 初期状態
+      let age = 26
+      let isWorking = true // 仕事をしているか
+      let isInSpace = false // 宇宙にいるか
+      let isBeardShaved = false // ひげを剃っているか
+
+      const draw = function() {
+        if (isWorking) {
+          person.textContent = "🧑‍💻"
+        } else {
+          person.textContent = "😄"
+        }
+
+        if (isInSpace) {
+          person.textContent += "✨🪐✨"
+        } else {
+          person.textContent += "🈁➡️🌏"
+        }
+      }
+
+      draw() // "🧑‍💻🈁➡️🌏"
+
+      // 退勤ボタン
+      quitWorkingButton.onclick = function() {
+        // 状態の更新
+        isWorking = false
+        // 状態の表示
+        draw()
+      }
+
+      // 打ち上げボタン
+      launchButton.onclick = function() {
+        isInSpace = true
+        draw()
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrelloLikeコピペ</title>
+  </head>
+  <body>
+    <input type="text" id="input-todo" />
+    <button id="add-button">add</button>
+    <div id="cards-container"></div>
+
+    <script>
+      // 要素の取得
+      const container = document.getElementById("cards-container")
+      const input = document.getElementById("input-todo")
+      const button = document.getElementById("add-button")
+
+      // 状態の更新
+      // リストの取得
+      const getList = () => {
+        const list = localStorage["list"] || "[]"
+        return JSON.parse(list)
+      }
+
+      // 取得した要素をlocalStorage[list]に入れ直す
+      const setList = (list) => {
+        const json = JSON.stringify(list)
+        localStorage["list"] = json
+      }
+
+      const updateList = (modifier) => {
+        // modifierはgetListを引数に入れた関数？
+        setList(modifier(getList()))
+      }
+      // 呼び出す時に、変化を加えたリストを返り値として返す関数を書く
+
+      // 更新の表示
+      const updateView = () => {
+        container.textContent = ""
+        const list = getList()
+        const fragment = document.createDocumentFragment()
+        list.forEach((text, index) => {
+          const card = document.createElement("div")
+          card.className = "card"
+
+          const todoText = document.createElement("div")
+          todoText.className = "todo"
+          todoText.textContent = text
+          card.appendChild(todoText)
+
+          const deleteButton = document.createElement("div")
+          deleteButton.className = "delete"
+          deleteButton.addEventListener("click", () => {
+            deleteTodo(index)
+          })
+          card.appendChild(deleteButton)
+
+          fragment.appendChild(card)
+        })
+
+        container.appendChild(fragment)
+      }
+
+      // 追加
+      const addTodo = () => {
+        // 状態の更新
+        updateList((list) => {
+          list.push(input.value)
+          return list
+        })
+        // 更新の表示
+        updateView()
+      }
+
+      const deleteTodo = (index) => {
+        // 状態の更新
+        updateList((list) => {
+          list.splice(index, 1)
+          return list
+        })
+        // 更新の表示
+        updateView()
+      }
+
+      // ユーザーの行動は以下
+      // 齟齬をなくす
+      window.addEventListener("load", () => {
+        updateView()
+      })
+
+      // ボタンを押したらaddTodoする
+      button.addEventListener("click", addTodo)
+    </script>
+  </body>
+</html>
