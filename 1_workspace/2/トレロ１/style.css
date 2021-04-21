@@ -122,8 +122,9 @@ header {
 }
 
 /* 追加 */
-.add-list-container {
+#add-list-container {
   display: flex;
+  margin: 0 8px;
 }
 
 #add-list-button {
