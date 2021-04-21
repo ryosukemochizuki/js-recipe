@@ -1,8 +1,6 @@
 const quizText = document.getElementById("quiz-text")
 const quizImage = document.getElementById("quiz-image")
-const choice1 = document.getElementById("choice-1")
-const choice2 = document.getElementById("choice-2")
-const choice3 = document.getElementById("choice-3")
+const choicesContainer = document.getElementById("choices-container")
 const feedback = document.getElementById("feedback")
 
 // // クリックの処理と選択肢の内容が混ざっている
@@ -20,21 +18,30 @@ const feedback = document.getElementById("feedback")
 
 // これで１問分(まとめると他のところを数字で処理できるから、変更が容易)
 const quiz = {
-  text: "この星は何でしょう？",
-  image: "Ganymede.jpg",
+  text: "この肉は何でしょう？",
+  image: "basashi.jpeg",
   choices: [
     {
-      text: "ゴリアテ",
+      text: "豚肉",
       feedback:
-        "残念！ゴリアテは、旧約聖書に登場するダビデに石で殺される巨人だよ。",
+        "残念！豚肉は、淡紅色で肉質が柔らかく、脂肪が肉と層状になっているよ！",
     },
     {
-      text: "ゼニガメ",
-      feedback: "残念！ゼニガメは、クサガメまたはニホンイシガメの幼体だよ。",
+      text: "馬肉",
+      feedback:
+        "正解！馬肉は、低 カロリー 、低 脂肪 、低 コレステロール 、低 飽和脂肪酸 、高 タンパク質 だよ！",
     },
     {
-      text: "ガニメデ",
-      feedback: "正解！ガニメデは、木星の第三惑星だよ！",
+      text: "牛肉",
+      feedback: "残念！牛肉は、牛の肉だよ！",
+    },
+    {
+      text: "羊肉",
+      feedback: "残念！ジンギスカンだよ！",
+    },
+    {
+      text: "鶏肉",
+      feedback: "残念！違う！",
     },
   ],
 }
@@ -45,26 +52,28 @@ const reloadQuiz = function() {
 
   quizImage.src = "./images/" + quiz.image
 
-  choice1.textContent = quiz.choices[0].text
-  choice2.textContent = quiz.choices[1].text
-  choice3.textContent = quiz.choices[2].text
+  // choicesの長さ分だけボタンを作る
+  for (let i = 0; i < quiz.choices.length; i++) {
+    const choice = document.createElement("button")
+    choice.textContent = quiz.choices[i].text
+    console.log(choice)
+    choicesContainer.append(choice)
+    // i番目のchoiceのクリック登録
+    choiceClick(choice, i)
+  }
 }
 
-// 引数によってfeedbackをかえるだけ関数
+// feedbackをかえる関数
 const choose = function(choiceNumber) {
   feedback.textContent = quiz.choices[choiceNumber].feedback
 }
 
 // 選択肢に数字を使うといろんな処理に変換できる
 // クリックイベントの処理だけ
-choice1.onclick = function() {
-  choose(0)
-}
-choice2.onclick = function() {
-  choose(1)
-}
-choice3.onclick = function() {
-  choose(2)
+const choiceClick = function(choice, n) {
+  choice.onclick = function() {
+    choose(n)
+  }
 }
 
 reloadQuiz()

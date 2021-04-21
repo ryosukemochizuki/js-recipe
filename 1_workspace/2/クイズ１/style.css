@@ -7,3 +7,7 @@
 .hidden {
   display: none;
 }
+
+#choices-container button {
+  margin: 8px;
+}
