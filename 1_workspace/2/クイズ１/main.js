@@ -16,7 +16,7 @@ const feedback = document.getElementById("feedback")
 //   feedback.textContent = "正解！ガニメデは、木星の第三惑星だよ！"
 // }
 
-// これで１問分(まとめると他のところを数字で処理できるから、変更が容易)
+// 発展★_これで１問分(まとめると他のところを数字で処理できるから変更が容易)
 const quiz = {
   text: "この肉は何でしょう？",
   image: "basashi.jpeg",
@@ -46,34 +46,36 @@ const quiz = {
   ],
 }
 
-// クイズを表示する
+// クイズを表示する関数
 const reloadQuiz = function() {
   quizText.textContent = "Q." + quiz.text
 
   quizImage.src = "./images/" + quiz.image
 
-  // choicesの長さ分だけボタンを作る
+  // 発展★★_choicesの長さ分だけボタンを作る_クイズ要素をJSにまとめるため
   for (let i = 0; i < quiz.choices.length; i++) {
     const choice = document.createElement("button")
     choice.textContent = quiz.choices[i].text
-    console.log(choice)
+    // console.log(choice)
     choicesContainer.append(choice)
     // i番目のchoiceのクリック登録
     choiceClick(choice, i)
   }
 }
 
-// feedbackをかえる関数
+// feedbackを返す関数
 const choose = function(choiceNumber) {
   feedback.textContent = quiz.choices[choiceNumber].feedback
 }
 
-// 選択肢に数字を使うといろんな処理に変換できる
 // クリックイベントの処理だけ
-const choiceClick = function(choice, n) {
+const choiceClick = function(choice, choiceNum) {
   choice.onclick = function() {
-    choose(n)
+    choose(choiceNum)
   }
 }
 
 reloadQuiz()
+
+// 選択肢に数字を使うといろんな処理に変換できる
+// 複数の問いを作る→quizオブジェクトを配列にして、次の問題をクリックしたら配列の番目を+1する？

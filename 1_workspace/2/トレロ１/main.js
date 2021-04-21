@@ -1,25 +1,12 @@
-// 一番最初だけのやつ
-// 要素を取得する
+// テキスト写し(リスト１つ)
+// // 要素を取得する
 // const inputElement = document.getElementById("input-todo")
 // const addButton = document.getElementById("add-button")
 // const container = document.getElementById("cards-container")
 
-// // カードを追加する
-// // 追加ボタンを押したら
-// addButton.onclick = function() {
-//   addCard()
-// }
-
-// // 発展★
-// document.onkeydown = function(e) {
-//   if (e.key === "Enter") {
-//     addCard()
-//   }
-// }
-
 // // カードを作る関数
 // const createCard = function(text) {
-//   // const text = inputElement.value // input要素のvalueを保存←引数に行った
+//   const text = inputElement.value // input要素のvalueを保存←引数に行った
 
 //   // コンテナに入れるためのカード要素を作る
 //   const card = document.createElement("div")
@@ -35,13 +22,12 @@
 //   // cardの中にdelete要素を作る
 //   const deleteButton = document.createElement("div")
 //   deleteButton.className = "delete"
+//   card.append(deleteButton) // cardの中にdeleteButtonをつける
 
 //   // deleteButtonのイベントを登録
 //   deleteButton.onclick = function() {
 //     card.remove()
 //   }
-
-//   card.append(deleteButton) // cardの中にdeleteButtonをつける
 
 //   return card // 処理を返すのではなく、完成したものを返す
 // }
@@ -53,44 +39,18 @@
 //   inputElement.value = "" // 値は空に戻す
 // }
 
-// 発展★★
-// const containers = [...document.querySelectorAll(".cards-container")]
-// const inputElements = [...document.querySelectorAll(".input-todo")]
-// const addButtons = [...document.querySelectorAll(".input-button")]
-// console.dir(containers)
-// console.dir(inputElements)
-// console.dir(addButtons)
-
-// for (let i = 0; i < containers.length; i++) {
-//   // カードを追加する関数
-//   const addCard = function() {
-//     const card = createCard(inputElements[i].value)
-//     containers[i].append(card) // できたカードをcontainerにつける
-//     inputElements[i].value = "" // 値は空に戻す
-//   }
-
-//   // カードを追加する
-//   addButtons[i].onclick = function() {
-//     if (inputElements[i].value) {
-//       addCard()
-//     }
-//   }
-//   inputElements[i].onkeydown = function(e) {
-//     // console.log(e)
-//     if (inputElements[i].value && e.key === "Enter") {
-//       addCard()
-//     }
-//   }
-
-//   // createCard(inputElements[i].value)
+// // カードを追加する
+// // 追加ボタンを押したら
+// addButton.onclick = function() {
+//   addCard()
 // }
 
-// 発展★★
-// リストの追加
-const addListButton = document.getElementById("add-list-button")
+// 発展★と★★
+// 要素の取得
 const addListContainer = document.getElementById("add-list-container")
+const addListButton = document.getElementById("add-list-button")
 
-// ボタンを押したら同じ構造のリストを作ってcontainerにappendするを書く
+// リストを作ってcontainerにappendする関数(listの中の一覧の動作も含む)
 const newContainer = function(title) {
   const listContainer = document.createElement("div")
   listContainer.className = "list-container"
@@ -120,6 +80,7 @@ const newContainer = function(title) {
   const inputButton = document.createElement("div")
   inputButton.className = "input-button"
   inputButton.textContent = "追加"
+  inputContainer.append(inputButton)
 
   // カードを追加する関数
   const addCard = function() {
@@ -128,20 +89,21 @@ const newContainer = function(title) {
     inputTodo.value = "" // 値は空に戻す
   }
 
+  // 追加ボタンを押したらカードを追加する
   inputButton.onclick = function() {
     if (inputTodo.value) {
       addCard()
     }
   }
 
-  // 発展★
+  // 発展★_enterを押したらカードを追加する
   inputTodo.onkeydown = function(e) {
-    if (e.key === "Enter") {
+    if (inputTodo.value && e.key === "Enter") {
       addCard()
     }
   }
 
-  inputContainer.append(inputButton)
+  // 出来上がったリストをDOMに追加する
   addListContainer.append(listContainer)
 }
 
@@ -171,17 +133,19 @@ const createCard = function(text) {
   return card // 処理を返すのではなく、完成したものを返す
 }
 
-addListButton.onclick = function() {
-  newContainer("todo")
-}
-
-let titles = ["GeekSalon", "家事", "todo"]
-
+// もともとあったtodo分の作れるように配列で管理→for文でリスト作成
+let titles = ["GeekSalon", "勉強", "家事"]
 for (let i = 0; i < titles.length; i++) {
   newContainer(titles[i])
+}
+
+// リスト追加ボタンで新しいリストを追加
+addListButton.onclick = function() {
+  newContainer("やることリスト")
 }
 
 // 最初の３つと追加のリストの処理を分けていた
 // 同じことをするのに、処理が分かれていると見にくいし、同じ処理を複数書くことに繋がる
 // ほぼ同じものを複数作る場合は、逆に違うところを配列で保存して引数とかで代入する構図にする
 // 既存のものに付け足していくだけではない
+// 新しい要素を作ってイベントハンドラを登録する時は、作る過程の関数内で定義する
