@@ -54,75 +54,50 @@
 // }
 
 // 発展★★
-const containers = [...document.querySelectorAll(".cards-container")]
-const inputElements = [...document.querySelectorAll(".input-todo")]
-const addButtons = [...document.querySelectorAll(".input-button")]
-console.dir(containers)
-console.dir(inputElements)
-console.dir(addButtons)
+// const containers = [...document.querySelectorAll(".cards-container")]
+// const inputElements = [...document.querySelectorAll(".input-todo")]
+// const addButtons = [...document.querySelectorAll(".input-button")]
+// console.dir(containers)
+// console.dir(inputElements)
+// console.dir(addButtons)
 
-for (let i = 0; i < containers.length; i++) {
-  // カードを追加する関数
-  const addCard = function() {
-    const card = createCard(inputElements[i].value)
-    containers[i].append(card) // できたカードをcontainerにつける
-    inputElements[i].value = "" // 値は空に戻す
-  }
+// for (let i = 0; i < containers.length; i++) {
+//   // カードを追加する関数
+//   const addCard = function() {
+//     const card = createCard(inputElements[i].value)
+//     containers[i].append(card) // できたカードをcontainerにつける
+//     inputElements[i].value = "" // 値は空に戻す
+//   }
 
-  // カードを追加する
-  addButtons[i].onclick = function() {
-    if (inputElements[i].value) {
-      addCard()
-    }
-  }
-  inputElements[i].onkeydown = function(e) {
-    // console.log(e)
-    if (inputElements[i].value && e.key === "Enter") {
-      addCard()
-    }
-  }
+//   // カードを追加する
+//   addButtons[i].onclick = function() {
+//     if (inputElements[i].value) {
+//       addCard()
+//     }
+//   }
+//   inputElements[i].onkeydown = function(e) {
+//     // console.log(e)
+//     if (inputElements[i].value && e.key === "Enter") {
+//       addCard()
+//     }
+//   }
 
-  // createCard(inputElements[i].value)
-}
+//   // createCard(inputElements[i].value)
+// }
 
-// カードを作る関数
-const createCard = function(text) {
-  // コンテナに入れるためのカード要素を作る
-  const card = document.createElement("div")
-  card.className = "card"
-
-  // cardの中のtodo要素を作る
-  const todo = document.createElement("div")
-  todo.className = "todo"
-  todo.textContent = text
-
-  card.append(todo) // cardの中にtodoをつける
-
-  // cardの中にdelete要素を作る
-  const deleteButton = document.createElement("div")
-  deleteButton.className = "delete"
-
-  // deleteButtonのイベントを登録
-  deleteButton.onclick = function() {
-    card.remove()
-  }
-  card.append(deleteButton) // cardの中にdeleteButtonをつける
-
-  return card // 処理を返すのではなく、完成したものを返す
-}
-
+// 発展★★
 // リストの追加
 const addListButton = document.getElementById("add-list-button")
 const addListContainer = document.getElementById("add-list-container")
 
 // ボタンを押したら同じ構造のリストを作ってcontainerにappendするを書く
-addListButton.onclick = function() {
+const newContainer = function(title) {
   const listContainer = document.createElement("div")
   listContainer.className = "list-container"
 
   const listHeader = document.createElement("div")
   listHeader.className = "list-header"
-  listHeader.textContent = "todo"
+  listHeader.textContent = title
   listContainer.append(listHeader)
 
   const cardsContainer = document.createElement("div")
@@ -159,23 +134,54 @@ addListButton.onclick = function() {
     }
   }
 
+  // 発展★
+  inputTodo.onkeydown = function(e) {
+    if (e.key === "Enter") {
+      addCard()
+    }
+  }
+
   inputContainer.append(inputButton)
-
   addListContainer.append(listContainer)
-
-  const addContainer = document.querySelector(".cards-container")
-  containers.push(addContainer)
-  const addInputElement = document.querySelector(".input-todo")
-  inputElements.push(addInputElement)
-  const addAddbutton = document.querySelector(".input-button")
-  addButtons.push(addAddbutton)
 }
 
-// querySelectorAllは配列ではないので、配列各種のメソッドは使えない
-// Array.from()
-// or
-// スプレッド構文？
+// カードを作る関数
+const createCard = function(text) {
+  // コンテナに入れるためのカード要素を作る
+  const card = document.createElement("div")
+  card.className = "card"
 
-// リストの追加できる
-// 追加したリストのcardの追加ができない。
-// 多分queryselectorallで受け取ったnodelistが増えてないためfor文が回らない?
+  // cardの中のtodo要素を作る
+  const todo = document.createElement("div")
+  todo.className = "todo"
+  todo.textContent = text
+
+  card.append(todo) // cardの中にtodoをつける
+
+  // cardの中にdelete要素を作る
+  const deleteButton = document.createElement("div")
+  deleteButton.className = "delete"
+
+  // deleteButtonのイベントを登録
+  deleteButton.onclick = function() {
+    card.remove()
+  }
+  card.append(deleteButton) // cardの中にdeleteButtonをつける
+
+  return card // 処理を返すのではなく、完成したものを返す
+}
+
+addListButton.onclick = function() {
+  newContainer("todo")
+}
+
+let titles = ["GeekSalon", "家事", "todo"]
+
+for (let i = 0; i < titles.length; i++) {
+  newContainer(titles[i])
+}
+
+// 最初の３つと追加のリストの処理を分けていた
+// 同じことをするのに、処理が分かれていると見にくいし、同じ処理を複数書くことに繋がる
+// ほぼ同じものを複数作る場合は、逆に違うところを配列で保存して引数とかで代入する構図にする
+// 既存のものに付け足していくだけではない
