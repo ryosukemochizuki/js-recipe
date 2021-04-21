@@ -54,12 +54,21 @@
 // }
 
 // 発展★★
-let containers = [...document.querySelectorAll(".cards-container")]
-let inputElements = [...document.querySelectorAll(".input-todo")]
-let addButtons = [...document.querySelectorAll(".input-button")]
-console.dir(containers[0])
+const containers = [...document.querySelectorAll(".cards-container")]
+const inputElements = [...document.querySelectorAll(".input-todo")]
+const addButtons = [...document.querySelectorAll(".input-button")]
+console.dir(containers)
+console.dir(inputElements)
+console.dir(addButtons)
 
 for (let i = 0; i < containers.length; i++) {
+  // カードを追加する関数
+  const addCard = function() {
+    const card = createCard(inputElements[i].value)
+    containers[i].append(card) // できたカードをcontainerにつける
+    inputElements[i].value = "" // 値は空に戻す
+  }
+
   // カードを追加する
   addButtons[i].onclick = function() {
     if (inputElements[i].value) {
@@ -73,39 +82,33 @@ for (let i = 0; i < containers.length; i++) {
     }
   }
 
-  // カードを作る関数
-  const createCard = function(text) {
-    // コンテナに入れるためのカード要素を作る
-    const card = document.createElement("div")
-    card.className = "card"
+  // createCard(inputElements[i].value)
+}
 
-    // cardの中のtodo要素を作る
-    const todo = document.createElement("div")
-    todo.className = "todo"
-    todo.textContent = text
+// カードを作る関数
+const createCard = function(text) {
+  // コンテナに入れるためのカード要素を作る
+  const card = document.createElement("div")
+  card.className = "card"
 
-    card.append(todo) // cardの中にtodoをつける
+  // cardの中のtodo要素を作る
+  const todo = document.createElement("div")
+  todo.className = "todo"
+  todo.textContent = text
 
-    // cardの中にdelete要素を作る
-    const deleteButton = document.createElement("div")
-    deleteButton.className = "delete"
+  card.append(todo) // cardの中にtodoをつける
 
-    // deleteButtonのイベントを登録
-    deleteButton.onclick = function() {
-      card.remove()
-    }
+  // cardの中にdelete要素を作る
+  const deleteButton = document.createElement("div")
+  deleteButton.className = "delete"
 
-    card.append(deleteButton) // cardの中にdeleteButtonをつける
-
-    return card // 処理を返すのではなく、完成したものを返す
+  // deleteButtonのイベントを登録
+  deleteButton.onclick = function() {
+    card.remove()
   }
+  card.append(deleteButton) // cardの中にdeleteButtonをつける
 
-  // カードを追加する関数
-  const addCard = function() {
-    const card = createCard(inputElements[i].value)
-    containers[i].append(card) // できたカードをcontainerにつける
-    inputElements[i].value = "" // 値は空に戻す
-  }
+  return card // 処理を返すのではなく、完成したものを返す
 }
 
 // リストの追加
@@ -142,9 +145,30 @@ addListButton.onclick = function() {
   const inputButton = document.createElement("div")
   inputButton.className = "input-button"
   inputButton.textContent = "追加"
+
+  // カードを追加する関数
+  const addCard = function() {
+    const card = createCard(inputTodo.value)
+    cardsContainer.append(card) // できたカードをcontainerにつける
+    inputTodo.value = "" // 値は空に戻す
+  }
+
+  inputButton.onclick = function() {
+    if (inputTodo.value) {
+      addCard()
+    }
+  }
+
   inputContainer.append(inputButton)
 
   addListContainer.append(listContainer)
+
+  const addContainer = document.querySelector(".cards-container")
+  containers.push(addContainer)
+  const addInputElement = document.querySelector(".input-todo")
+  inputElements.push(addInputElement)
+  const addAddbutton = document.querySelector(".input-button")
+  addButtons.push(addAddbutton)
 }
 
 // querySelectorAllは配列ではないので、配列各種のメソッドは使えない
@@ -154,4 +178,4 @@ addListButton.onclick = function() {
 
 // リストの追加できる
 // 追加したリストのcardの追加ができない。
-// 多分queryselectorallで受け取ったnodelistが増えてないためfor文が回らない
+// 多分queryselectorallで受け取ったnodelistが増えてないためfor文が回らない?
