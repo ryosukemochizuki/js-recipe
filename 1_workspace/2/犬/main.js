@@ -41,8 +41,9 @@
 // プルダウンメニューlist選択で一枚の写真が選ばれるようにする
 // ↓
 // 数字のプロダウンメニュー選択で数字分要素を作ってsrcに代入できる
-// const title = document.getElementById("title")
+
 const breeds = document.getElementById("breeds")
+const numbers = document.getElementById("numbers")
 const loadButton = document.getElementById("load-button")
 const imagesContainer = document.getElementById("images-container")
 
@@ -61,27 +62,48 @@ fetch("https://dog.ceo/api/breeds/list")
 
 // 犬種のオプションを作る関数
 const makeDogOption = (data, arrayNum) => {
-  const option = document.createElement("option")
-  option.textContent = data.message[arrayNum]
-  option.value = data.message[arrayNum]
-  // console.log(option)
-  breeds.append(option)
+  const dogOption = document.createElement("option")
+  dogOption.textContent = data.message[arrayNum]
+  dogOption.value = data.message[arrayNum]
+  // console.log(dogOption)
+  breeds.append(dogOption)
 }
 
+// 匹数のオプションを作る
+for (let numberNum = 0; numberNum < 31; numberNum++) {
+  const numOption = document.createElement("option")
+  numOption.textContent = numberNum
+  numOption.value = numberNum
+  // console.log(numOption)
+  numbers.append(numOption)
+}
+
+// 検索をする関数
+const search = () => {
+  const hound = breeds.value
+  const dogNum = Number(numbers.value)
+  // console.log(hound)
+  // console.log(dogNum)
+  if (dogNum !== 0) {
+    fetch(`https://dog.ceo/api/breed/${hound}/images/random/${dogNum}`)
+      .then((res) => {
+        // console.dir(res)
+        return res.json()
+      })
+      .then((data) => {
+        // console.dir(data)
+        for (let nowDogNum = 0; nowDogNum < data.message.length; nowDogNum++) {
+          const imageElement = document.createElement("img")
+          imageElement.src = data.message[nowDogNum]
+          imageElement.alt = hound
+          imagesContainer.append(imageElement)
+        }
+      })
+  }
+}
+
+// 更新ボタンを押した時
 loadButton.onclick = () => {
-  // console.log(breeds.value)
-  const inputElement = breeds.value
-  const hound = inputElement
-  fetch(`https://dog.ceo/api/breed/${hound}/images/random`)
-    .then((res) => {
-      console.dir(res)
-      return res.json()
-    })
-    .then((data) => {
-      console.dir(data)
-      const imageElement = document.createElement("img")
-      imageElement.src = data.message
-      imageElement.alt = hound
-      imagesContainer.append(imageElement)
-    })
+  imagesContainer.textContent = "" // 写真をクリアする
+  search() // 新しい検索をかける
 }
