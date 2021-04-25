@@ -13,64 +13,75 @@
       <button id="add-button">追加</button>
     </div>
 
-    <div id="memo-container"></div>
+    <div id="memo-container">
+      <!-- ここにカードを入れる -->
+    </div>
 
     <script>
+      // 要素取得
       const memoInput = document.getElementById("memo-input")
       const addButton = document.getElementById("add-button")
       const memoContainer = document.getElementById("memo-container")
 
+      // 1枚のカードを作る関数
+      const makeCard = function(text, id) {
+        // カード
+        const card = document.createElement("div")
+        card.className = "card"
+        card.textContent = text
+        card.id = id
+        memoContainer.append(card)
+
+        // 削除ボタン
+        const deleteButton = document.createElement("div")
+        deleteButton.className = "deleteButton"
+        deleteButton.textContent = "削除"
+        // 削除ボタンにイベントを付与
+        deleteButton.onclick = function() {
+          for (let i = 0; i < memos.length; i++) {
+            // カードのIDとmemosにあるidが重なったら
+            if (card.id === memos[i].id) {
+              memos.splice(i, 1) // i番目を消去する
+              console.log(memos)
+              localStorage.memos = JSON.stringify(memos) // ローカルストレージの更新
+              card.remove() // 消したところの表示更新
+            }
+          }
+        }
+        card.append(deleteButton)
+      }
+
+      // 初期値
       let memos = []
+      if (localStorage.memos) {
+        memos = JSON.parse(localStorage.memos) // JSON文字列をオブジェクトとして扱えるように変換
+        for (let i = 0; i < memos.length; i++) {
+          makeCard(memos[i].text, memos[i].id)
+        }
+      }
 
+      // 追加ボタンをクリック
       addButton.onclick = function() {
-        memoContainer.innerHTML = ""
-        const id = Math.random().toString(16)
-        // console.log(id)
         const text = memoInput.value
-        const obj = { id, text }
-        memos.push(obj)
-        localStorage.memos = JSON.stringify(memos)
-
         if (text !== "") {
+          memoContainer.innerHTML = "" // 全てクリアする
+          const id = Math.random().toString(16) // 固有の番号を付与する
+          const obj = { text, id }
+          memos.push(obj)
+          // console.log(memos)
+          localStorage.memos = JSON.stringify(memos) // 配列をJSON文字列にして代入
+
+          // もともとのmemos配列個数分カードを作る
           for (let i = 0; i < memos.length; i++) {
             makeCard(memos[i].text, memos[i].id)
           }
 
-          memos.sort()
-          console.log(memos)
-          memoInput.value = ""
-        }
-      }
-
-      const makeCard = function(text, id) {
-        const card = document.createElement("div")
-        card.className = "card"
-        card.id = id
-        card.textContent = text
-        memoContainer.append(card)
-
-        const deleteButton = document.createElement("div")
-        deleteButton.className = "deleteButton"
-        deleteButton.textContent = "削除"
-        card.append(deleteButton)
-
-        deleteButton.onclick = function() {
-          // for (let i = 0; i < memos.length; i++) {
-          //   if (memos[i].id === ) {
-
-          //   }
-
-          // }
-          card.remove()
-        }
-      }
-
-      if (localStorage.memos) {
-        memos = JSON.parse(localStorage.memos)
-        for (let i = 0; i < memos.length; i++) {
-          makeCard(memos[i].text)
+          memoInput.value = "" // input.valueを消去
         }
       }
     </script>
   </body>
 </html>
+
+<!-- 並び替えの時 -->
+<!-- memos.sort() -->
