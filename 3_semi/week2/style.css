@@ -1,0 +1,27 @@
+.card {
+  width: 150px;
+  height: 30px;
+  position: relative;
+}
+
+#add-button {
+  background-color: rosybrown;
+  transition: 1s;
+}
+
+#add-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.deleteButton:hover {
+  color: red;
+  border: solid 2px red;
+  cursor: pointer;
+}

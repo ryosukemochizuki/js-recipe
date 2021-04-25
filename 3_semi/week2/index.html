@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div>
+      <input type="text" id="memo-input" />
+      <button id="add-button">追加</button>
+    </div>
+
+    <div id="memo-container"></div>
+
+    <script>
+      const memoInput = document.getElementById("memo-input")
+      const addButton = document.getElementById("add-button")
+      const memoContainer = document.getElementById("memo-container")
+
+      let memos = []
+
+      addButton.onclick = function() {
+        memoContainer.innerHTML = ""
+        const id = Math.random().toString(16)
+        // console.log(id)
+        const text = memoInput.value
+        const obj = { id, text }
+        memos.push(obj)
+
+        if (text !== "") {
+          for (let i = 0; i < memos.length; i++) {
+            makeCard(memos[i].text)
+          }
+
+          memos.sort()
+          console.log(memos)
+          memoInput.value = ""
+        }
+      }
+
+      const makeCard = function(text) {
+        const card = document.createElement("div")
+        card.className = "card "
+        card.textContent = text
+        memoContainer.append(card)
+
+        const deleteButton = document.createElement("div")
+        deleteButton.className = "deleteButton"
+        deleteButton.textContent = "削除"
+        card.append(deleteButton)
+
+        deleteButton.onclick = function() {
+          card.remove()
+        }
+      }
+    </script>
+  </body>
+</html>
