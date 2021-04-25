@@ -29,6 +29,7 @@
         const text = memoInput.value
         const obj = { id, text }
         memos.push(obj)
+        localStorage.memos = JSON.stringify(memos)
 
         if (text !== "") {
           for (let i = 0; i < memos.length; i++) {
@@ -54,6 +55,13 @@
 
         deleteButton.onclick = function() {
           card.remove()
+        }
+      }
+
+      if (localStorage.memos) {
+        memos = JSON.parse(localStorage.memos)
+        for (let i = 0; i < memos.length; i++) {
+          makeCard(memos[i].text)
         }
       }
     </script>
