@@ -33,7 +33,7 @@
 
         if (text !== "") {
           for (let i = 0; i < memos.length; i++) {
-            makeCard(memos[i].text)
+            makeCard(memos[i].text, memos[i].id)
           }
 
           memos.sort()
@@ -42,9 +42,10 @@
         }
       }
 
-      const makeCard = function(text) {
+      const makeCard = function(text, id) {
         const card = document.createElement("div")
-        card.className = "card "
+        card.className = "card"
+        card.id = id
         card.textContent = text
         memoContainer.append(card)
 
@@ -54,6 +55,12 @@
         card.append(deleteButton)
 
         deleteButton.onclick = function() {
+          // for (let i = 0; i < memos.length; i++) {
+          //   if (memos[i].id === ) {
+
+          //   }
+
+          // }
           card.remove()
         }
       }
