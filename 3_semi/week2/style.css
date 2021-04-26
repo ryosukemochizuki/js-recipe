@@ -4,12 +4,14 @@
   position: relative;
 }
 
-#add-button {
+#add-button,
+.sort-button {
   background-color: rosybrown;
   transition: 1s;
 }
 
-#add-button:hover {
+#add-button:hover,
+.sort-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }

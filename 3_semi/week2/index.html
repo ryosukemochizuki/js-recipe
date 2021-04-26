@@ -11,6 +11,7 @@
     <div>
       <input type="text" id="memo-input" />
       <button id="add-button">追加</button>
+      <button id="sort-button">並び替える</button>
     </div>
 
     <div id="memo-container">
@@ -22,6 +23,7 @@
       const memoInput = document.getElementById("memo-input")
       const addButton = document.getElementById("add-button")
       const memoContainer = document.getElementById("memo-container")
+      const sortButton = document.getElementById("sort-button")
 
       // 1枚のカードを作る関数
       const makeCard = function(text, id) {
@@ -31,7 +33,6 @@
         card.textContent = text
         card.id = id
         memoContainer.append(card)
-
         // 削除ボタン
         const deleteButton = document.createElement("div")
         deleteButton.className = "deleteButton"
@@ -51,37 +52,70 @@
         card.append(deleteButton)
       }
 
+      // 配列個数分カードを作る
+      const makeCards = function(ary) {
+        for (let i = 0; i < ary.length; i++) {
+          makeCard(ary[i].text, ary[i].id)
+        }
+      }
+
       // 初期値
       let memos = []
       if (localStorage.memos) {
         memos = JSON.parse(localStorage.memos) // JSON文字列をオブジェクトとして扱えるように変換
-        for (let i = 0; i < memos.length; i++) {
-          makeCard(memos[i].text, memos[i].id)
+        makeCards(memos)
+      }
+
+      // 追加する関数
+      const addCards = function(text) {
+        if (text !== "") {
+          memoContainer.innerHTML = "" // 全てクリアする
+          const id = Math.random().toString(16) // 固有の番号を付与する
+          const memo = { text, id }
+          memos.push(memo)
+          // console.log(memos)
+          localStorage.memos = JSON.stringify(memos) // 配列をJSON文字列にして代入
+
+          makeCards(memos)
         }
       }
 
       // 追加ボタンをクリック
       addButton.onclick = function() {
         const text = memoInput.value
-        if (text !== "") {
-          memoContainer.innerHTML = "" // 全てクリアする
-          const id = Math.random().toString(16) // 固有の番号を付与する
-          const obj = { text, id }
-          memos.push(obj)
-          // console.log(memos)
-          localStorage.memos = JSON.stringify(memos) // 配列をJSON文字列にして代入
+        addCards(text)
+        memoInput.value = "" // input.valueを消去
+      }
 
-          // もともとのmemos配列個数分カードを作る
-          for (let i = 0; i < memos.length; i++) {
-            makeCard(memos[i].text, memos[i].id)
-          }
-
+      // エンターキーを押す
+      memoInput.onkeydown = function(e) {
+        if (e.key === "Enter") {
+          const text = memoInput.value
+          addCards(text)
           memoInput.value = "" // input.valueを消去
+        }
+      }
+
+      // 比較するための関数(昇順)
+      const compareText = function(a, b) {
+        if (a.text < b.text) {
+          return -1 // aが先に来る
+        } else if (a.text > b.text) {
+          return 1 // bが先に来る
+        }
+        return 0 // 順番を変えずグルーピングだけしてソートする
+      }
+
+      // 並び替えボタンをクリック
+      sortButton.onclick = function() {
+        if (localStorage.memos) {
+          memoContainer.innerHTML = ""
+          memos = JSON.parse(localStorage.memos)
+          memos.sort(compareText)
+          localStorage.memos = JSON.stringify(memos)
+          makeCards(memos)
         }
       }
     </script>
   </body>
 </html>
-
-<!-- 並び替えの時 -->
-<!-- memos.sort() -->
