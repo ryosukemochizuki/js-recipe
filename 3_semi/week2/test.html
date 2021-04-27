@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const toMorseCode = function(numString) {
+        const ary = numString.split("")
+        let morseCode = ""
+        for (let i = 0; i < ary.length; i++) {
+          if (Number(ary[i])) {
+            morseCode += "・"
+          } else {
+            morseCode += "-"
+          }
+        }
+        return morseCode
+      }
+
+      console.log(toMorseCode("000111000"))
+
+      // 一つの文字列内で区切る時は配列変換しなくてもいい
+
+      const addAllNumbers = function(haihunString) {
+        const array = haihunString.split("-")
+        let sum = 0
+        for (let i = 0; i < array.length; i++) {
+          sum += Number(array[i])
+        }
+        return sum
+      }
+
+      console.log(addAllNumbers("12-34-5"))
+    </script>
+  </body>
+</html>
