@@ -8,6 +8,8 @@ WebAPI は公式ドキュメントを見る
 
 fetch は時間がかかるので、取得している間に他のコードも同時進行する。→ 非同期処理
 
+dogAPI や catAPI などのようなものより、自分固有の APIkey を発行するものして認証を組み込むものが多い
+
 JSON データは全体が大きな文字列としてあるのでオブジェクトとして扱うためには一番外側の""をとる →JSON.parse
 
 ### Location
@@ -15,3 +17,7 @@ JSON データは全体が大きな文字列としてあるのでオブジェク
 今いる URL を持っているプロパティ
 document.location もしくは window.location で使用化
 mdn => https://developer.mozilla.org/ja/docs/Web/API/Location
+
+### openWeather reference
+
+- https://openweathermap.org/api
