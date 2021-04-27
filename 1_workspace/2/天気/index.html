@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather</title>
+  </head>
+  <style>
+    #weather-container {
+      font-size: 32px;
+    }
+  </style>
+  <body>
+    <h1>現在の天気を検索</h1>
+    <input type="text" id="input-weather" />
+    <button id="search">検索</button>
+    <div id="weather-container">
+      <!-- ここにお天気マークを入れる -->
+    </div>
+    <div id="error">
+      <!-- fetchがうまくいってなかったらここにメッセージ -->
+    </div>
+
+    <script>
+      const weatherContainer = document.getElementById("weather-container")
+      const inputWeather = document.getElementById("input-weather")
+      const seachButton = document.getElementById("search")
+      const errorMessage = document.getElementById("error")
+
+      const apiKey = "" /* your API 人によって違う */
+
+      seachButton.onclick = function() {
+        if (inputWeather.value) {
+          const region = inputWeather.value
+          fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${region}&appid=${apiKey}`,
+          )
+            .then((res) => {
+              if (!res.ok) {
+                errorMessage.textContent = "地域名が間違っています。"
+                return
+              }
+              // console.log(res)
+              return res.json()
+            })
+            .then((data) => {
+              // console.log(data)
+              const weather = data.weather[0].description
+              // console.log(weather)
+              if (weather === "clear sky") {
+                weatherContainer.textContent = "☀️晴れ"
+              } else if (weather.includes("rain")) {
+                weatherContainer.textContent = "☔️雨"
+              } else {
+                weatherContainer.textContent = "⛈曇り"
+              }
+            })
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<!-- dogAPIやcatAPIなどのようなものより、自分固有のAPIkeyを発行するものして認証を組み込むものが多いみたい -->
+
+<!-- openWeather reference -->
+<!-- https://openweathermap.org/api -->
