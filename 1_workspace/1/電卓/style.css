@@ -1,0 +1,13 @@
+#input-number {
+  width: 200px;
+  height: 30px;
+}
+
+.num,
+#devide,
+#times,
+#minus,
+#plus,
+#equal {
+  width: 48px;
+}
