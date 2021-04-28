@@ -4,42 +4,50 @@ const numbers = document.querySelectorAll(".num")
 const maths = document.querySelectorAll(".math")
 const equal = document.getElementById("equal")
 
-let secondNum = ""
+// 数字と記号保存初期値
+let firstNum = 0
+let secondNum = 0
+let kigou = ""
+
+// 数字一つずつにハンドラ登録
 numbers.forEach((number) => {
   number.onclick = function() {
     inputNumber.value += Number(number.textContent)
-    // console.log(inputNumber.value)
-    secondNum = Number(inputNumber.value)
-    console.log(secondNum)
+    secondNum = Number(inputNumber.value) //最初に押した数字は2番目に入るため
+    console.log("secondNum", secondNum)
   }
 })
 
-let firstNum = ""
-let kigou = ""
+// 演算子一つずつにハンドラ登録
 maths.forEach((math) => {
   math.onclick = function() {
-    // inputNumber.value += math.textContent
-    // console.log(inputNumber.value)
     kigou = math.textContent
-    firstNum = secondNum
-    secondNum = ""
     inputNumber.value = ""
-    // console.log(kigou)
-    // console.log(firstNum)
-    // console.log(secondNum)
+    firstNum = secondNum
+    secondNum = 0
+    console.log("kigou", kigou)
+    console.log("firstNum", firstNum)
+    console.log("secondNum", secondNum)
   }
 })
 
+// イコールを押した時
 equal.onclick = function() {
   if (kigou === "/") {
     inputNumber.value = firstNum / secondNum
+    secondNum = Number(inputNumber.value)
   } else if (kigou === "*") {
     inputNumber.value = firstNum * secondNum
+    secondNum = Number(inputNumber.value)
   } else if (kigou === "-") {
     inputNumber.value = firstNum - secondNum
+    secondNum = Number(inputNumber.value)
   } else if (kigou === "+") {
     inputNumber.value = firstNum + secondNum
+    secondNum = Number(inputNumber.value)
+    console.log("secondNum", secondNum)
   } else {
     inputNumber.value = 0
+    secondNum = Number(inputNumber.value)
   }
 }
