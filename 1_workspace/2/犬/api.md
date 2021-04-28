@@ -21,3 +21,19 @@ mdn => https://developer.mozilla.org/ja/docs/Web/API/Location
 ### openWeather reference
 
 - https://openweathermap.org/api
+
+### callback 関数
+
+関数の中で呼び出される関数のこと。
+関数の引数に取られる関数。外部で定義したものでも、直接定義するでも。
+
+関数の処理の中で、コールバック関数の結果を使って関数の処理をしたい時。
+
+- Array.foreach(() => {})
+- setInterval(関数, 秒数)
+- .then(() => {}) promise と関係する。簡単にいうと、promise の組み込みメソッド。
+
+### Promise
+
+作成時点(fetch でとってきただけの時)では分からなくて良い、data の代理みたいなもの。
+意味あるデータを取得したいなら、Premise に.json()メソッドを使う。
