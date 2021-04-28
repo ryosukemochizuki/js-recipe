@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>カクテル</title>
+  </head>
+  <style>
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+  <body>
+    <div id="change-cocktail">更新</div>
+    <img src="" id="cocktail-image" alt="" />
+    <script>
+      const cocktailImage = document.getElementById("cocktail-image")
+      const changeButton = document.getElementById("change-cocktail")
+
+      fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+        .then((res) => {
+          return res.json()
+        })
+        .then((data) => {
+          console.log(data)
+          console.log(data.drinks[0].strDrinkThumb)
+          cocktailImage.src = data.drinks[0].strDrinkThumb
+        })
+
+      changeButton.onclick = function() {
+        location.reload()
+      }
+    </script>
+  </body>
+</html>
