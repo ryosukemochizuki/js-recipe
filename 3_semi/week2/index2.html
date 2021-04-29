@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>trello</title>
+  </head>
+  <body>
+    <h1>trello</h1>
+    <div id="cards-container">
+      <!-- ここにカードを入れる -->
+    </div>
+    <div id="input-container">
+      <input type="text" name="" id="input-todo" />
+      <input type="button" value="追加" id="button" />
+    </div>
+    <script>
+      const cardsContainer = document.getElementById("cards-container")
+      const inputTodo = document.getElementById("input-todo")
+      const addButton = document.getElementById("button")
+
+      let todo = []
+
+      const makeCard = function(content) {
+        const card = document.createElement("div")
+        card.textContent = content
+        cardsContainer.append(card)
+      }
+
+      if (localStorage.todo) {
+        todo = JSON.parse(localStorage.todo)
+        console.log(todo)
+        for (let i = 0; i < todo.length; i++) {
+          makeCard(todo[i])
+        }
+      }
+
+      addButton.onclick = function() {
+        if (inputTodo.value) {
+          makeCard(inputTodo.value)
+
+          // console.log(todo)
+          todo.push(inputTodo.value)
+          // console.log(todo)
+          localStorage.todo = JSON.stringify(todo)
+
+          inputTodo.value = ""
+        }
+      }
+    </script>
+  </body>
+</html>
