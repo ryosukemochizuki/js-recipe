@@ -21,28 +21,45 @@
       const addButton = document.getElementById("button")
 
       let todo = []
+      let cardObj = {}
 
+      // カードを作る
       const makeCard = function(content) {
         const card = document.createElement("div")
+        card.id = Math.floor(Math.random() * 10000)
         card.textContent = content
+        cardObj = { id: card.id, text: content }
+        const deleteButton = document.createElement("button")
+        deleteButton.textContent = "削除"
+        deleteButton.onclick = function() {
+          for (let i = 0; i < todo.length; i++) {
+            if (card.id === todo[i].id) {
+              todo.splice(i, 1)
+              localStorage.todo = JSON.stringify(todo)
+            }
+          }
+          card.remove()
+        }
+        card.append(deleteButton)
         cardsContainer.append(card)
       }
 
+      // ロードした時
       if (localStorage.todo) {
         todo = JSON.parse(localStorage.todo)
-        console.log(todo)
         for (let i = 0; i < todo.length; i++) {
-          makeCard(todo[i])
+          makeCard(todo[i].text)
         }
       }
 
+      // 追加ボタンを押した時
       addButton.onclick = function() {
         if (inputTodo.value) {
           makeCard(inputTodo.value)
 
-          // console.log(todo)
-          todo.push(inputTodo.value)
-          // console.log(todo)
+          console.log(todo)
+          todo.push(cardObj)
+          console.log(todo)
           localStorage.todo = JSON.stringify(todo)
 
           inputTodo.value = ""
