@@ -34,10 +34,22 @@ const checkAmountMoney = function() {
   }
 }
 
+// 色を変える
+const changeColor = function() {
+  if (myMoney <= 500) {
+    myMoneyDisplay.className = "vending-machine__display__money--danger"
+  } else if (myMoney <= 1000) {
+    myMoneyDisplay.className = "vending-machine__display__money--warn"
+  } else {
+    myMoneyDisplay.className = "vending-machine__display__money"
+  }
+}
+
 // バイトで増える
 addMyMoneyButton.onclick = function() {
   myMoney += 1000
   myMoneyDisplay.textContent = myMoney
+  changeColor()
 }
 
 // 硬貨を入れる
@@ -49,6 +61,7 @@ addAmountMoneyButton.onclick = function() {
     amountMoneyDisplay.textContent = amountMoney
   }
   checkAmountMoney()
+  changeColor()
 }
 
 // 写真を返す
