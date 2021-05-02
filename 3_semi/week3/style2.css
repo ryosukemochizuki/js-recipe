@@ -19,12 +19,13 @@
 
 .about {
   background-color: #00473e;
-  color: #00473e;
+  color: white;
   padding: 5rem;
 }
 
 .about__wrapper {
-  background-color: #f2f7f5;
+  /* background-color: #f2f7f5; */
+  border: #f2f7f5 5px solid;
   padding: 30px;
 }
 
