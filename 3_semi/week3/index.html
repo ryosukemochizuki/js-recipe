@@ -23,6 +23,9 @@
         <button id="add-amount-money">
           自販機に100円入れる
         </button>
+        <button id="return-money">
+          お釣り
+        </button>
       </div>
       <div class="vending-machine__display">
         投入金額:<span class="vending-machine__display__money" id="amount-money"
@@ -30,11 +33,26 @@
         >円
       </div>
       <div class="vending-machine__buy-buttons">
-        <button class="vending-machine__buy-buttons__button" id="tea-button">
+        <button
+          class="vending-machine__buy-buttons__button"
+          id="tea-button"
+          disabled
+        >
           お茶 100円
         </button>
-        <button class="vending-machine__buy-buttons__button" id="coke-button">
+        <button
+          class="vending-machine__buy-buttons__button"
+          id="coke-button"
+          disabled
+        >
           コーラ 130円
+        </button>
+        <button
+          class="vending-machine__buy-buttons__button"
+          id="beer-button"
+          disabled
+        >
+          ビール 150円
         </button>
       </div>
       <div class="vending-machine__items-container" id="items-container"></div>
