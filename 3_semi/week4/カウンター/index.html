@@ -41,6 +41,26 @@
             this.count += 1
           },
         },
+        computed: {
+          // 関数の中にあるdataの状態が変わった時だけ自動的に実行される
+          // 検証ツール上で見ると、dataのcountは!がつかないで増えている
+          // genkiは!で増えている、{{ genki }} としているためこっちが反映
+
+          // countUpする=>dataが変わる=>変わったことでgenkiが通る=>実行結果(return)がviewに反映される
+          genki: function() {
+            const result =
+              this.count > 0 && this.count % 3 === 0
+                ? `${this.count}!!!`
+                : this.count
+            return result
+
+            // if (this.count > 0 && this.count % 3 === 0) {
+            //   return `${this.count}!!!`
+            // } else {
+            //   return this.count
+            // }
+          },
+        },
       })
     </script>
   </body>
