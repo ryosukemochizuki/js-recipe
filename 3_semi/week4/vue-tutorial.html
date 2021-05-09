@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>WebExpertコーステンプレート</title>
+  </head>
+  <body>
+    <!-- vueインスタンスの内容を適用したい場所をidで囲む -->
+    <div id="app">
+      <section>
+        {{ message }}
+        <div title="やあ">
+          title属性は、ホバーするとテキストを表示させます。
+        </div>
+        <div :title="title">
+          このテキストにマウスをホバーすると、動的に変わるtitleプロパティが見られます。
+        </div>
+      </section>
+      <!-- v-if(:if)とv-elseについて -->
+      <section>
+        <span v-if="true"
+          >今、seenはtrueです。falseに書き換えてみましょう。</span
+        >
+        <span v-else>今,seenはfalseです</span>
+      </section>
+      <!-- v-forについて -->
+      <!-- 配列のデータを一つずつ取り出せる -->
+      <section>
+        <div v-for="todo in todos">
+          {{ todo.text }}
+        </div>
+      </section>
+      <!-- v-on:click(@click)について -->
+      <!-- v-on:イベント名="関数" -->
+      <section>
+        <div>
+          {{ message }}
+        </div>
+        <div>
+          <button v-on:click="reverseMessage">reverseMessage</button>
+        </div>
+      </section>
+      <!-- v-modelについて -->
+      <!-- viewとdataを紐づける -->
+      <section>
+        <div>
+          {{message}}
+        </div>
+        <div>
+          <input type="text" v-model="message" />
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "Vue Devtoolsを使ってこのメッセージを書き換えてみましょう！",
+          title: "You loaded this page on" + new Date().toLocaleString(),
+          // seen: false
+          todos: [
+            { text: "Learn JavaScript" },
+            { text: "Learn Vue" },
+            { text: "Build something awesome" },
+          ],
+        },
+        methods: {
+          reverseMessage: function() {
+            this.message = this.message
+              .split("")
+              .reverse()
+              .join("")
+          },
+        },
+      })
+      app.todos.push({ text: "pushで追加されたオブジェクトのテキスト" })
+    </script>
+  </body>
+</html>

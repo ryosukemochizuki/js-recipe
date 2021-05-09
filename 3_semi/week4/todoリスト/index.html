@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Vue Trello?</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-title">Vue Trello?</div>
+    </header>
+    <div class="main-container" id="app">
+      <div class="list-container">
+        <div class="list-header">買い物リスト</div>
+        <div class="cards-container">
+          <div class="card" v-for="todo in list">
+            <div class="text">
+              {{ todo }}
+            </div>
+            <div class="delete"></div>
+          </div>
+        </div>
+        <input type="text" id="input-todo" v-model="inputTodo" />
+        <div id="input-button"></div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          list: [
+            "ひき肉を300g買う",
+            "ホウレンソウを1束買う",
+            "ピーマンを2個買う",
+          ],
+          todo: "",
+        },
+        methods: {
+          addTodo: function() {},
+        },
+      })
+    </script>
+  </body>
+</html>
