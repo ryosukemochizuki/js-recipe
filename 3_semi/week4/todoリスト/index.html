@@ -15,15 +15,23 @@
       <div class="list-container">
         <div class="list-header">買い物リスト</div>
         <div class="cards-container">
-          <div class="card" v-for="todo in list">
-            <div class="text">
-              {{ todo }}
+          <div class="card" v-for="todo, i in list">
+            <!-- v-modelは依存関係、型が同じものはHTML, dataで一貫する -->
+            <input type="checkbox" v-model="list[i].isDone" />
+            <div class="text" v-bind:class="{ done: list[i].isDone }">
+              {{todo.text}}
             </div>
-            <div class="delete"></div>
+            <!-- <div v-if="list[i].isDone === false" class="text">
+              {{ todo.text }}
+            </div>
+            <div v-else style="text-decoration: line-through;">
+              {{ todo.text }}
+            </div> -->
+            <div class="delete" @click="deleteTodo(i)"></div>
           </div>
         </div>
-        <input type="text" id="input-todo" v-model="inputTodo" />
-        <div id="input-button"></div>
+        <input type="text" class="input-todo" v-model="inputTodo" />
+        <button class="input-button" @click="addTodo">追加</button>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -32,14 +40,20 @@
         el: "#app",
         data: {
           list: [
-            "ひき肉を300g買う",
-            "ホウレンソウを1束買う",
-            "ピーマンを2個買う",
+            { text: "ひき肉を300g買う", isDone: false },
+            { text: "ホウレンソウを1束買う", isDone: false },
+            { text: "ピーマンを2個買う", isDone: false },
           ],
-          todo: "",
+          inputTodo: "",
+          isDone: false,
         },
         methods: {
-          addTodo: function() {},
+          addTodo: function() {
+            this.list.push(this.inputTodo)
+          },
+          deleteTodo: function(i) {
+            this.list.splice(i, 1)
+          },
         },
       })
     </script>
