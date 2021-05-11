@@ -22,12 +22,35 @@ new Vue({
           },
         ],
       },
+      {
+        question: "この城の名前はなんでしょう？",
+        imagePath: "./images/Maruoka.png",
+        choices: [
+          {
+            answer: "まるおか",
+            feedback: "正解！",
+          },
+          {
+            answer: "まる",
+            feedback: "残念！",
+          },
+          {
+            answer: "おか",
+            feedback: "残念！",
+          },
+        ],
+      },
     ],
     feedbackDisc: "",
+    order: 0,
   },
   methods: {
     showAnswer: function(id) {
-      this.feedbackDisc = this.quizes[0].choices[id].feedback
+      this.feedbackDisc = this.quizes[this.order].choices[id].feedback
+    },
+    showNext: function() {
+      this.feedbackDisc = ""
+      this.order++
     },
   },
 })
