@@ -106,10 +106,8 @@ new Vue({
     memo: "",
   },
   created: function() {
-    const storedMemo = localStorage.memo
-    console.log(storedMemo)
-    if (storedMemo) {
-      this.memo = storedMemo
+    if (localStorage.memo) {
+      this.memo = localStorage.memo
     }
   },
   methods: {

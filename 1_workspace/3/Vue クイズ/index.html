@@ -8,14 +8,18 @@
   </head>
   <body>
     <div id="app">
-      <h1>この星の名前はなんでしょう？</h1>
-      <img src="./images/Ganymede.jpg" alt="" />
+      <h1>{{ quizes[0].question }}</h1>
+      <!-- v-bindの基本機能はhtmlの属性にdataを使える -->
+      <img v-bind:src="quizes[0].imagePath" alt="" />
       <div class="button-container">
-        <button>ガニメデ</button>
-        <button>ゼニガメ</button>
-        <button>ゴリアテ</button>
+        <button
+          v-for="choice, id in quizes[0].choices"
+          v-on:click="showAnswer(id)"
+        >
+          {{ choice.answer }}
+        </button>
       </div>
-      <div class="feekback"></div>
+      <div class="feedback">{{ feedbackDisc }}</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="main.js"></script>
