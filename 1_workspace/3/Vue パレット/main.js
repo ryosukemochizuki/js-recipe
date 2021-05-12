@@ -28,6 +28,14 @@ new Vue({
     showMiniColor: function(color) {
       this.redNum = color.red
       this.greenNum = color.green
+      this.blueNum = color.blue
+      this.opacityNum = color.opacity
+    },
+    changeBlue: function(e) {
+      this.blueNum = e.offsetX
+    },
+    changeOpacity: function(e) {
+      this.opacityNum = Math.floor(e.offsetX / 20) / 10
     },
   },
   computed: {
@@ -35,6 +43,11 @@ new Vue({
     showColor: function() {
       return {
         backgroundColor: `rgba(${this.redNum}, ${this.greenNum}, ${this.blueNum}, ${this.opacityNum})`,
+      }
+    },
+    showBlue: function() {
+      return {
+        backgroundColor: `rgba(0, 0, ${this.blueNum}, ${this.opacityNum})`,
       }
     },
   },

@@ -22,6 +22,19 @@
       width: 20%;
       height: 50px;
     }
+
+    .blue {
+      width: 255px;
+      height: 5px;
+      background-color: black;
+      margin: 10px 0;
+    }
+
+    .opacity {
+      width: 200px;
+      height: 5px;
+      background-color: black;
+    }
   </style>
   <body>
     <div id="app">
@@ -31,6 +44,12 @@
         v-on:click="createMini"
         v-bind:style="showColor"
       ></div>
+      <div
+        class="blue"
+        v-on:mousemove="changeBlue"
+        v-bind:style="showBlue"
+      ></div>
+      <div class="opacity" v-on:mousemove="changeOpacity"></div>
       <p>rgba({{ redNum }}, {{ greenNum }}, {{ blueNum }}, {{ opacityNum }})</p>
       <div class="minis">
         <div
