@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>My Portfolio</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <section class="header-container">
+          <h1 class="header__title">RyosukeMochizuki</h1>
+          <div class="header__nav-container">
+            <ul
+              id="header__nav-container__lists"
+              v-bind:class="{ open: menuOpen }"
+            >
+              <li
+                class="header__nav-container__lists-item"
+                v-on:click="navAction"
+              >
+                <a class="nav-link" href="#home">Home</a>
+              </li>
+              <li
+                class="header__nav-container__lists-item"
+                v-on:click="navAction"
+              >
+                <a class="nav-link" href="#aboutme">About</a>
+              </li>
+              <li
+                class="header__nav-container__lists-item"
+                v-on:click="navAction"
+              >
+                <a class="nav-link" href="#gallery">Gallery</a>
+              </li>
+            </ul>
+            <div id="small-menu" v-on:click="showMenu">
+              <span
+                class="bar"
+                id="bar1"
+                v-bind:class="{ open: menuOpen }"
+              ></span>
+              <span
+                class="bar"
+                id="bar2"
+                v-bind:class="{ open: menuOpen }"
+              ></span>
+              <span
+                class="bar"
+                id="bar3"
+                v-bind:class="{ open: menuOpen }"
+              ></span>
+            </div>
+          </div>
+        </section>
+      </header>
+      <section id="home">
+        <div class="home-opacity">
+          <div class="home-container">
+            <div id="home__discription" v-bind:class="{ fadein: fadeIn }">
+              <h2 class="home__discription__name">RyosukeMochizuki</h2>
+              <p class="home__discription__sub-title">
+                Javascript Portfolio
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /home -->
+      <section id="aboutme">
+        <div class="aboutme-container">
+          <h2 class="aboutme__title">About me</h2>
+          <div class="aboutme__details">
+            <div
+              class="aboutme__q-and-a"
+              v-for="aboutme, i in aboutmes"
+              v-on:mouseover="showAnswer(i)"
+            >
+              <p class="aboutme__question">{{ aboutme.question }}</p>
+              <p class="aboutme__answer" v-bind:class="{ seen: aboutme.seen }">
+                {{ aboutme.answer }}
+              </p>
+            </div>
+            <div class="aboutme__q-and-a">
+              <p class="aboutme__question" v-on:mouseover="showHobby">Hobby</p>
+              <p
+                class="aboutme__answer"
+                id="aboutme__answer__trip"
+                v-on:click="showCountries"
+                v-bind:class="{ seen: seenHobby, open: countriesOpen }"
+              >
+                一人旅
+              </p>
+              <div
+                id="aboutme__answer__countries"
+                v-bind:class="{ open: countriesOpen }"
+              >
+                <div
+                  class="aboutme__answer__country"
+                  v-for="country in countries"
+                  v-bind:class="{ open: countriesOpen }"
+                >
+                  <img
+                    class="aboutme__answer__country-img"
+                    v-bind:src="country.imagePath"
+                    v-bind:alt="country.name"
+                  />
+                  <p>{{ country.name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /aboutme -->
+      <section id="gallery">
+        <div class="gallery-container">
+          <div class="gallery__title">Gellery</div>
+          <div class="gallery__slides">
+            <span id="gallery__slide__arrow-left" v-on:click="showBeforePhoto"
+              >⬅︎</span
+            >
+            <img
+              alt="gallery-slide"
+              id="gallery__slide"
+              v-bind:src="slides[nowPhoto].imagePath"
+            />
+            <span id="gallery__slide__arrow-right" v-on:click="showNextPhoto"
+              >➡︎</span
+            >
+          </div>
+          <div id="gallery__slide__discription">
+            {{ slides[nowPhoto].title }}
+          </div>
+        </div>
+      </section>
+      <!-- /gallery -->
+      <footer class="footer-discription">
+        <small>&copy; 2021 RyosukeMochizuki, All Rights Reserved.</small>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
