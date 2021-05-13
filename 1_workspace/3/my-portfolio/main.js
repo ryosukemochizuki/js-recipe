@@ -113,12 +113,23 @@ new Vue({
       this.menuOpen === false ? (this.menuOpen = true) : (this.menuOpen = false)
     },
     // smooth
-    scrollToTarget: function(e) {
-      console.dir(e)
+    getInfo: function(e) {
       this.triggerHref = e.target.hash
-      console.log(this.triggerHref)
-      this.targetHref = this.triggerHref.replace("#", "")
-      console.log(this.targetHref)
+      this.targetHref = document.getElementById(
+        this.triggerHref.replace("#", ""),
+      )
+      this.posFromPageToBrawer = this.targetHref.getBoundingClientRect().top
+      this.targetPosFromBrawer = window.pageYOffset
+      this.targetPos = this.posFromPageToBrawer + this.targetPosFromBrawer - 64
+      console.log(this.targetPos)
+    },
+    scrollToTarget: function(e) {
+      this.getInfo(e)
+      e.preventDefault()
+      window.scroll({
+        top: this.targetPos,
+        behavior: "smooth",
+      })
     },
     // navAction
     navAction: function(e) {
@@ -141,35 +152,3 @@ new Vue({
     setInterval(this.showNextPhoto.bind(this), 5000)
   },
 })
-
-// // スムーズにスクロール
-
-// const navLinks = document.querySelectorAll(".nav-link")
-// // 情報を得る関数
-// const getInfo = function(num) {
-//   const triggerHref = navLinks[num].getAttribute("href") // link自身のhrefを保存
-//   const targetHref = document.getElementById(triggerHref.replace("#", "")) // linkの#を除いたidを持つ要素を保存 nodeの情報で位置が分かる
-
-//   const positionFromPageTopToBrawerTop = pageYOffset // ページのトップからブラウザのトップまで
-//   const targetPositionFromBrawer = targetHref.getBoundingClientRect().top // ブラウザのトップから目的地までの距離
-//   const targetPositon =
-//     positionFromPageTopToBrawerTop + targetPositionFromBrawer - 64 // 合計 - headerの高さ
-
-//   return targetPositon // 結果を返す
-// }
-// // クリックイベントを登録する関数
-// const clickLink = function(num) {
-//   navLinks[num].onclick = function(e) {
-//     e.preventDefault() // 標準のスクロールを停止する
-//     const targetPosition = getInfo(num) // targetPositionの取得
-//     // 組み込みメソッドscrollで位置, 動作指定する
-//     window.scroll({
-//       top: targetPosition,
-//       behavior: "smooth",
-//     })
-//   }
-// }
-// // linkがある個数分だけイベントを作る
-// for (let i = 0; i < navLinks.length; i++) {
-//   clickLink(i)
-// }
