@@ -127,3 +127,7 @@ header {
 .list-footer {
   margin-top: 8px;
 }
+
+.centerline {
+  text-decoration: line-through;
+}
